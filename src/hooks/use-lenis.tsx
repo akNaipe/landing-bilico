@@ -10,6 +10,9 @@ const isIOS = typeof navigator !== "undefined" &&
   /iPad|iPhone|iPod/.test(navigator.userAgent) &&
   !(window as unknown as Record<string, boolean>).MSStream;
 
+/* ─── Detect mobile by screen width ─── */
+const isMobileWidth = typeof window !== "undefined" && window.innerWidth < 768;
+
 /* ─── Lenis instance singleton ─── */
 let globalLenis: Lenis | null = null;
 let rafId: number | null = null;
@@ -19,12 +22,14 @@ function startLenis() {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // iOS: native scroll is smoother — disable Lenis smooth wheel
+  // Mobile/iOS: native scroll is smoother — disable Lenis smooth wheel
+  const useNative = isIOS || isMobileWidth;
+
   globalLenis = new Lenis({
-    duration: 1.2,
+    duration: useNative ? 0.8 : 1.2,
     easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     wheelMultiplier: 1,
-    smoothWheel: !isIOS,
+    smoothWheel: !useNative,
     orientation: "vertical",
     gestureOrientation: "vertical",
     touchMultiplier: isIOS ? 1 : 1.5,

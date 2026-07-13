@@ -13,7 +13,7 @@ import {
   Scissors,
 } from "lucide-react";
 import { siteConfig } from "@/constants/site";
-import { staggerContainer, fadeIn, fadeInLeft } from "@/animations/framer-variants";
+import { navLinks } from "@/constants/site";
 
 const socialIcons: Record<string, React.ReactNode> = {
   Instagram: <Camera className="w-4 h-4" />,
@@ -32,27 +32,26 @@ export default function Footer() {
       />
 
       <motion.div
-        className="section-container py-10 md:py-16"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-        variants={staggerContainer}
+        className="section-container pt-14 md:pt-20 pb-10 md:pb-14"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
+        {/* ─── Top Row: Brand + Links + Contact + Hours ─── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {/* Brand */}
-          <motion.div variants={fadeInLeft}>
+          <div>
             <div className="flex items-center gap-3 mb-4">
               <Scissors className="w-5 h-5 text-gold" />
               <span className="font-display text-lg tracking-[0.06em] text-white">
                 <span className="text-gold">bilico</span> Barber
               </span>
             </div>
-            <p className="text-gray text-sm font-body leading-relaxed mb-6 max-w-xs">
+            <p className="text-gray text-sm font-body leading-relaxed mb-5 max-w-xs">
               {siteConfig.description}
             </p>
-
-            {/* Social */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               {siteConfig.social.map((s) => (
                 <a
                   key={s.name}
@@ -66,20 +65,15 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          {/* Quick Links */}
-          <motion.div variants={fadeIn}>
+          {/* Links */}
+          <div>
             <h4 className="font-subtitle font-semibold text-white text-sm uppercase tracking-wider mb-4">
               Links
             </h4>
-            <ul className="space-y-3">
-              {[
-                { label: "Início", href: "#hero" },
-                { label: "Serviços", href: "#services" },
-                { label: "Galeria", href: "#gallery" },
-                { label: "Contato", href: "#contact" },
-              ].map((link) => (
+            <ul className="space-y-2.5">
+              {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
@@ -90,14 +84,14 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-          </motion.div>
+          </div>
 
           {/* Contact */}
-          <motion.div variants={fadeIn}>
+          <div>
             <h4 className="font-subtitle font-semibold text-white text-sm uppercase tracking-wider mb-4">
               Contato
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-2.5">
               <li>
                 <a
                   href={`https://wa.me/${siteConfig.contact.phone}`}
@@ -106,7 +100,7 @@ export default function Footer() {
                   className="flex items-center gap-2 text-gray hover:text-gold text-sm transition-colors duration-300 font-body"
                 >
                   <Phone className="w-3.5 h-3.5 text-gold flex-shrink-0" />
-                  <span className="break-all">{siteConfig.contact.phone}</span>
+                  {siteConfig.contact.phone}
                 </a>
               </li>
               <li>
@@ -123,46 +117,38 @@ export default function Footer() {
                   href={siteConfig.contact.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-2 text-gray hover:text-gold text-sm transition-colors duration-300 font-body min-w-0"
+                  className="flex items-start gap-2 text-gray hover:text-gold text-sm transition-colors duration-300 font-body"
                 >
                   <MapPin className="w-3.5 h-3.5 text-gold flex-shrink-0 mt-0.5" />
-                  <span className="break-words">{siteConfig.contact.address}</span>
+                  <span className="break-words leading-tight">{siteConfig.contact.address}</span>
                 </a>
               </li>
             </ul>
-          </motion.div>
+          </div>
 
           {/* Hours */}
-          <motion.div variants={fadeIn}>
+          <div>
             <h4 className="font-subtitle font-semibold text-white text-sm uppercase tracking-wider mb-4">
               Horários
             </h4>
-            <ul className="space-y-3">
-              <li className="flex items-start gap-2">
-                <Clock className="w-3.5 h-3.5 text-gold flex-shrink-0 mt-0.5" />
-                <div className="text-sm font-body">
-                  {siteConfig.hours.map((h) => (
-                    <div key={h.days} className="flex justify-between gap-4 text-gray">
-                      <span className="text-gray-dark">{h.days}</span>
-                      <span className="text-white">{h.hours}</span>
-                    </div>
-                  ))}
-                </div>
-              </li>
+            <ul className="space-y-2.5">
+              {siteConfig.hours.map((h) => (
+                <li key={h.days} className="flex items-center justify-between gap-3 text-sm font-body">
+                  <span className="text-gray-dark">{h.days}</span>
+                  <span className="text-white text-right">{h.hours}</span>
+                </li>
+              ))}
             </ul>
-          </motion.div>
+          </div>
         </div>
 
-        {/* Bottom Bar */}
-        <motion.div
-          variants={fadeIn}
-          className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-dark font-body"
-        >
+        {/* ─── Bottom Bar ─── */}
+        <div className="mt-8 pt-5 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-2 text-sm text-gray-dark font-body">
           <p>© {new Date().getFullYear()} bilico Barber. Todos os direitos reservados.</p>
           <p>
             desenvolvido por{" "}
             <a
-              href="https://github.com/jamalrcy"
+              href="https://instagram.com/jamalrcy"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gold hover:text-gold-light transition-colors duration-300"
@@ -170,7 +156,7 @@ export default function Footer() {
               @jamalrcy
             </a>
           </p>
-        </motion.div>
+        </div>
       </motion.div>
     </footer>
   );

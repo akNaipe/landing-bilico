@@ -22,7 +22,7 @@ interface FloatingElementsProps {
 }
 
 export default function FloatingElements({
-  count = 8,
+  count,
   className,
   minSize = 4,
   maxSize = 12,
@@ -30,8 +30,14 @@ export default function FloatingElements({
   const containerRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
 
+  // Reduce count on mobile
+  const adjustedCount = useMemo(() => {
+    if (typeof window === "undefined") return count || 8;
+    return window.innerWidth < 768 ? Math.floor((count || 8) / 2) : count || 8;
+  }, [count]);
+
   const elements = useMemo(() => {
-    return Array.from({ length: count }, (_, i) => ({
+    return Array.from({ length: adjustedCount }, (_, i) => ({
       id: i,
       size: Math.random() * (maxSize - minSize) + minSize,
       x: Math.random() * 100,
@@ -40,7 +46,7 @@ export default function FloatingElements({
       delay: Math.random() * 2,
       rotationDuration: Math.random() * 10 + 10,
     }));
-  }, [count, minSize, maxSize]);
+  }, [adjustedCount, minSize, maxSize]);
 
   useEffect(() => {
     if (reducedMotion || !containerRef.current) return;

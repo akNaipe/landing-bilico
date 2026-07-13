@@ -165,7 +165,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative h-screen min-h-[500px] md:min-h-[600px] max-h-[900px] flex items-center justify-center overflow-hidden"
+      className="relative h-svh min-h-[500px] md:min-h-[600px] max-h-[900px] flex items-center justify-center overflow-hidden"
     >
       {/* ─── BACKGROUND BASE ─── */}
       <div ref={backgroundRef} className="absolute inset-0">

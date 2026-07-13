@@ -35,15 +35,19 @@ export default function AnimatedBg() {
     let mouseY = 0;
     let time = 0;
 
-    const PARTICLE_COUNT = 60;
+    const isMobile = window.innerWidth < 768;
+    const PARTICLE_COUNT = isMobile ? 25 : 60;
 
     const resize = () => {
-      const dpr = 1.5;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      initParticles();
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    // On mobile, cap at 1 to save battery/performance
+    const isMobile = window.innerWidth < 768;
+    const effectiveDpr = isMobile ? 1 : Math.min(dpr, 1.5);
+    canvas.width = window.innerWidth * effectiveDpr;
+    canvas.height = window.innerHeight * effectiveDpr;
+    canvas.style.width = `${window.innerWidth}px`;
+    canvas.style.height = `${window.innerHeight}px`;
+    initParticles();
     };
 
     const initParticles = () => {

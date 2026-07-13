@@ -88,7 +88,7 @@ export default function CTA() {
     <section
       ref={sectionRef}
       id="cta"
-      className="relative min-h-[50vh] flex items-center py-16 md:py-24 lg:py-32 overflow-hidden"
+      className="relative flex items-center py-24 md:py-32 lg:py-40 overflow-hidden"
     >
       <ParticleField count={50} color="rgba(212, 175, 55" />
       <GlowEffect

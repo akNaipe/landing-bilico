@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Bebas_Neue, Poppins, Inter } from "next/font/google";
 import "./globals.css";
 import { LenisProvider } from "@/hooks/use-lenis";
@@ -30,7 +30,13 @@ const inter = Inter({
   display: "swap",
 });
 
-/* ─── SEO Metadata ─── */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#0A0A0A",
+  viewportFit: "cover",
+};
 export const metadata: Metadata = {
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -152,7 +158,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-black text-white antialiased">
+      <body className="min-h-screen bg-black text-white antialiased selection:bg-gold/30 selection:text-white">
         <LenisProvider>
           <CustomCursor />
           <Navbar />

@@ -23,7 +23,7 @@ export default function WhatsAppFloat() {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 18, mass: 0.8 }}
-          className="fixed bottom-4 right-3 md:bottom-6 md:right-6 z-[60]"
+          className="fixed bottom-4 right-3 md:bottom-6 md:right-6 z-[60] will-change-transform"
         >
           <div className="relative">
             {/* Pulse ring animado */}

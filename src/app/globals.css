@@ -46,6 +46,7 @@
 html {
   scroll-behavior: auto;
   overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -55,6 +56,16 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  overscroll-behavior: none;
+}
+
+/* ─── Ensure 100dvh instead of 100vh on mobile ─── */
+@supports (height: 100dvh) {
+  .h-screen-fix {
+    height: 100dvh;
+  }
 }
 
 /* ─── Fix: Safari iOS — Bebas Neue não cola mais ─── */
@@ -168,6 +179,12 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+/* ─── Fix #2b: Prevent text size adjust on orientation change ─── */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 /* ─── Fix #3: Prevent iOS zoom on input focus ─── */
 @media screen and (max-width: 768px) {
   input, textarea, select {
@@ -189,9 +206,26 @@ body {
     scroll-behavior: auto;
   }
 
-  /* Keep decorative background animations but reduce intensity */
-  .animate-float-slow,
-  .animate-pulse-glow {
-    animation-duration: 8s;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Touch device optimizations ─── */
+@media (hover: none) and (pointer: coarse) {
+  .glass-card:hover {
+    transform: none !important;
+  }
+  .group-hover\:scale-110:hover {
+    transform: none !important;
+  }
+}
+
+/* ─── Smooth fonts on Apple devices ─── */
+@supports (font: -apple-system-body) {
+  body {
+    font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
   }
 }
