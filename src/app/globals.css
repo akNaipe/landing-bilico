@@ -1,26 +1,197 @@
 @import "tailwindcss";
+@import "../styles/glassmorphism.css";
+@import "../styles/animations.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* ─── Tailwind v4 Theme Extension ─── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-black: #0A0A0A;
+  --color-graphite: #171717;
+  --color-gold: #D4AF37;
+  --color-gold-light: #E8C84A;
+  --color-gold-dark: #B8960F;
+  --color-white: #FFFFFF;
+  --color-gray: #A1A1AA;
+  --color-gray-dark: #52525B;
+  --color-gray-light: #E4E4E7;
+
+  --font-display: "Bebas Neue", "sans-serif";
+  --font-subtitle: "Poppins", "sans-serif";
+  --font-body: "Inter", "sans-serif";
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-expo: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-smooth: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── CSS Custom Properties ─── */
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-blur: blur(15px);
+
+  --glow-gold: 0 0 20px rgba(212, 175, 55, 0.3);
+  --glow-gold-strong: 0 0 40px rgba(212, 175, 55, 0.5);
+  --glow-gold-subtle: 0 0 10px rgba(212, 175, 55, 0.15);
+
+  --section-py: 4rem;
+  --container-px: 1.25rem;
+
+  --duration-fast: 200ms;
+  --duration-normal: 400ms;
+  --duration-slow: 800ms;
+}
+
+/* ─── Base Styles ─── */
+html {
+  scroll-behavior: auto;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-body), "Inter", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Fix: Safari iOS — Bebas Neue não cola mais ─── */
+.font-display {
+  letter-spacing: 0.08em !important;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: var(--color-white);
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-black);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-dark);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* ─── Gold Text ─── */
+.gold-text {
+  color: var(--color-gold);
+  text-shadow: var(--glow-gold-subtle);
+}
+
+/* ─── Glassmorphism Utilities ─── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-gold {
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.1),
+    rgba(212, 175, 55, 0.05)
+  );
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: var(--glow-gold-subtle);
+}
+
+/* ─── Gold Glow ─── */
+.glow-gold {
+  box-shadow: var(--glow-gold);
+}
+.glow-gold-strong {
+  box-shadow: var(--glow-gold-strong);
+}
+
+/* ─── Gradient Text ─── */
+.gradient-gold {
+  background: linear-gradient(135deg, #D4AF37 0%, #E8C84A 40%, #D4AF37 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Golden Border ─── */
+.border-gold {
+  border-color: rgba(212, 175, 55, 0.3);
+}
+.border-gold:hover {
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+/* ─── Section Container ─── */
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--container-px);
+}
+
+/* ─── Responsive container for mobile ─── */
+@media (max-width: 640px) {
+  :root {
+    --container-px: 1rem;
+    --section-py: 3rem;
+  }
+}
+
+/* ─── Fix #1: Safari iOS — Bebas Neue spacing ─── */
+.font-display {
+  letter-spacing: 0.06em;
+}
+
+/* ─── Fix #2: Safari iOS — hardware acceleration for scroll ─── */
+html {
+  -webkit-overflow-scrolling: touch;
+}
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ─── Fix #3: Prevent iOS zoom on input focus ─── */
+@media screen and (max-width: 768px) {
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+}
+
+/* ─── Fix #4: Safe area for notched iPhones ─── */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .section-container {
+    padding-left: calc(var(--container-px) + env(safe-area-inset-left));
+    padding-right: calc(var(--container-px) + env(safe-area-inset-right));
+  }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Keep decorative background animations but reduce intensity */
+  .animate-float-slow,
+  .animate-pulse-glow {
+    animation-duration: 8s;
+  }
 }
