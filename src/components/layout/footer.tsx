@@ -32,7 +32,7 @@ export default function Footer() {
       />
 
       <motion.div
-        className="section-container py-12 md:py-20"
+        className="section-container py-10 md:py-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
@@ -156,10 +156,20 @@ export default function Footer() {
         {/* Bottom Bar */}
         <motion.div
           variants={fadeIn}
-          className="mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-dark font-body"
+          className="mt-8 md:mt-10 pt-6 md:pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3 text-sm text-gray-dark font-body"
         >
           <p>© {new Date().getFullYear()} bilico Barber. Todos os direitos reservados.</p>
-          <p>Feito com dedicação para homens que valorizam estilo.</p>
+          <p>
+            desenvolvido por{" "}
+            <a
+              href="https://github.com/jamalrcy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gold hover:text-gold-light transition-colors duration-300"
+            >
+              @jamalrcy
+            </a>
+          </p>
         </motion.div>
       </motion.div>
     </footer>

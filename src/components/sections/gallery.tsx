@@ -11,7 +11,7 @@ import SectionTitle from "@/components/shared/section-title";
 import { fadeInScale } from "@/animations/framer-variants";
 import { useReducedMotion } from "@/hooks/use-media-query";
 
-const galleryItems = Array.from({ length: 8 }, (_, i) => ({
+const galleryItems = Array.from({ length: 6 }, (_, i) => ({
   id: i,
   src: `/images/gallery/gallery-${i + 1}.jpg`,
   alt: `Galeria bilico Barber ${i + 1}`,

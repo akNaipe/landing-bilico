@@ -36,7 +36,7 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    if (reducedMotionRef.current || !sectionRef.current) return;
+    if (!isClient || reducedMotionRef.current || !sectionRef.current) return;
 
     if (typeof window !== "undefined") {
       gsap.registerPlugin(ScrollTrigger);
@@ -85,15 +85,17 @@ export default function Hero() {
       // ─── TITLE CHARACTER EXPLOSION ───
       if (titleRef.current) {
         const chars = titleRef.current.querySelectorAll(".hero-char");
-        tl.fromTo(
-          chars,
-          { opacity: 0, y: 120, rotateX: -70, scale: 0.5, filter: "blur(10px)" },
-          {
-            opacity: 1, y: 0, rotateX: 0, scale: 1, filter: "blur(0px)",
-            duration: 1, stagger: 0.025, ease: "elastic.out(1, 0.6)",
-          },
-          "-=0.3"
-        );
+        if (chars.length > 0) {
+          tl.fromTo(
+            chars,
+            { opacity: 0, y: 120, rotateX: -70, scale: 0.5, filter: "blur(10px)" },
+            {
+              opacity: 1, y: 0, rotateX: 0, scale: 1, filter: "blur(0px)",
+              duration: 1, stagger: 0.025, ease: "elastic.out(1, 0.6)",
+            },
+            "-=0.3"
+          );
+        }
       }
 
       // ─── SUBTITLE ───
@@ -109,12 +111,14 @@ export default function Hero() {
       // ─── CTAS ───
       if (ctaRef.current) {
         const buttons = ctaRef.current.querySelectorAll(".hero-cta");
-        tl.fromTo(
-          buttons,
-          { opacity: 0, y: 60, scale: 0.7, rotateX: -20 },
-          { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 0.9, stagger: 0.15, ease: "back.out(1.7)" },
-          "-=0.4"
-        );
+        if (buttons.length > 0) {
+          tl.fromTo(
+            buttons,
+            { opacity: 0, y: 60, scale: 0.7, rotateX: -20 },
+            { opacity: 1, y: 0, scale: 1, rotateX: 0, duration: 0.9, stagger: 0.15, ease: "back.out(1.7)" },
+            "-=0.4"
+          );
+        }
       }
 
       // ─── SCROLL INDICATOR ───
@@ -143,7 +147,7 @@ export default function Hero() {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []); // ⚠️ Sempre executado uma vez. Usa ref pra ler reducedMotion.
+  }, [isClient]); // Aguarda isClient=true para ter os .hero-char no DOM
 
   const splitTitle = (text: string, isClient: boolean) => {
     if (!isClient) {

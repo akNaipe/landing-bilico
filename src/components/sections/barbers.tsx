@@ -36,7 +36,7 @@ function BarberCard({ barber }: { barber: Barber }) {
       >
         {/* Avatar com anéis decorativos */}
         <div ref={avatarRef} className="relative mx-auto mb-6 md:mb-8 w-32 h-32 md:w-44 md:h-44">
-          <div className="w-full h-full rounded-full overflow-hidden border-2 border-gold/20 group-hover:border-gold/50 transition-all duration-500">
+          <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-gold/20 group-hover:border-gold/50 transition-all duration-500">
             <Image
               src={barber.image}
               alt={barber.name}

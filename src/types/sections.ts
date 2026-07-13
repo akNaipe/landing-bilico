@@ -96,6 +96,10 @@ export interface ProcessProps {
   steps: import("./index").ProcessStep[];
 }
 
+export interface CoursesProps {
+  courses: import("./index").Course[];
+}
+
 export interface CTAProps {
   headline: string;
   subheadline: string;

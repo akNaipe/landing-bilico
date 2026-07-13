@@ -27,6 +27,11 @@ const Barbers = dynamic(
   { loading: () => <SectionSkeleton /> }
 );
 
+const Courses = dynamic(
+  () => import("@/components/sections/courses").then(mod => ({ default: withErrorBoundary(mod.default) })),
+  { loading: () => <SectionSkeleton /> }
+);
+
 const Testimonials = dynamic(
   () => import("@/components/sections/testimonials").then(mod => ({ default: withErrorBoundary(mod.default) })),
   { loading: () => <SectionSkeleton /> }
@@ -61,6 +66,7 @@ export default function Home() {
       <About />
       <Gallery />
       <Barbers />
+      <Courses />
       <Testimonials />
       <Process />
       <CTA />

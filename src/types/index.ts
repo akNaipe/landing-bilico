@@ -50,6 +50,20 @@ export interface SocialLink {
   icon: string;
 }
 
+export interface Course {
+  id: string;
+  name: string;
+  description: string;
+  icon: string; // Lucide icon name
+  image?: string;
+  duration: string;
+  level: "Iniciante" | "Intermediário" | "Avançado";
+  modules: number;
+  instructor: string;
+  status: "Em andamento" | "Em breve" | "Disponível";
+  href: string;
+}
+
 export interface SiteConfig {
   name: string;
   description: string;
